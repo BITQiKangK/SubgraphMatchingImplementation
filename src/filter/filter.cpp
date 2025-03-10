@@ -1,6 +1,7 @@
 #include "filter.h"
 #include "utility/graph_operations/graph_operations.h"
 
+#include <string.h>
 #include <iostream>
 #include <algorithm>
 #include <set>

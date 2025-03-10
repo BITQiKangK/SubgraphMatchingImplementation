@@ -1,5 +1,6 @@
 #include "match_engine.h"
 #include "filter/filter.h"
+#include "order/order.h"
 
 #include <chrono>
 #include <iostream>
@@ -9,6 +10,7 @@
 std::vector<std::vector<VertexID>> MatchEngine::candidates_;
 std::vector<VertexID> MatchEngine::filter_order_;
 std::vector<VertexID> MatchEngine::matching_order_;
+std::vector<VertexID> MatchEngine::pivot_;
 std::vector<TreeNode> MatchEngine::tree_;
 ui MatchEngine::embedding_count_;
 
@@ -40,11 +42,20 @@ void MatchEngine::match(const Graph& data_graph, const Graph& query_graph, const
     }
 #endif
 
-    // // Order vertices based on order type
-    // auto start_order_time = std::chrono::high_resolution_clock::now();
-    // order(data_graph, query_graph, order_type, candidates_, matching_order_);
-    // auto end_order_time = std::chrono::high_resolution_clock::now();
-    // order_vertices_time_ = std::chrono::duration_cast<std::chrono::nanoseconds>(end_order_time - start_order_time).count();
+    // Order vertices based on order type
+    auto start_order_time = std::chrono::high_resolution_clock::now();
+    Order::order(data_graph, query_graph, order_type.c_str(), candidates_, matching_order_, pivot_);
+    auto end_order_time = std::chrono::high_resolution_clock::now();
+    auto order_vertices_time_ = std::chrono::duration_cast<std::chrono::milliseconds>(end_order_time - start_order_time).count();
+    std::cout << "Order vertices time: " << order_vertices_time_ / 1000 << " s" << std::endl;
+
+#ifdef DEBUGMODE
+    std::cout << "Matching Order: " << std::endl;
+    for (int i = 0; i < matching_order_.size(); i++) {
+        std::cout << matching_order_[i] << " ";
+    }
+    std::cout << std::endl;
+#endif
 
     // // Build table
 

@@ -2,7 +2,6 @@
 
 #include "graph/graph.h"
 #include "common/aux.h"
-#include <string.h>
 
 enum class FilterType {
     UNDEFINED,

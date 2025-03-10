@@ -28,13 +28,12 @@ public:
         enumerate_time_ = 0.;
     }
 
-private:
-    static bool filter(const Graph& data_graph, const Graph& query_graph, const std::string& filter_type, std::vector<std::vector<VertexID>>& candidates, std::vector<VertexID>& filter_order, std::vector<TreeNode>& tree);
 
 private:
     static std::vector<std::vector<VertexID>> candidates_;
     static std::vector<VertexID> filter_order_;
     static std::vector<VertexID> matching_order_;
+    static std::vector<VertexID> pivot_;
     static std::vector<TreeNode> tree_;
     static ui embedding_count_;
 
