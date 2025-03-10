@@ -3,6 +3,7 @@
 #include "alias.h"
 
 #include <vector>
+#include <unordered_map>
 
 class TreeNode {
 public:
@@ -16,4 +17,17 @@ public:
     std::vector<VertexID> bn_;
     std::vector<VertexID> fn_;
     size_t estimated_embeddings_num_;
+};
+
+class Table : public std::vector<std::vector<std::unordered_map<VertexID, std::vector<VertexID>>>> {
+public:
+    Table() = default;
+
+public:
+    void table_resize(ui query_graph_size) {
+        this->resize(query_graph_size);
+        for (int i = 0; i < this->size(); i++) {
+            (*this)[i].resize(query_graph_size);
+        }
+    }
 };

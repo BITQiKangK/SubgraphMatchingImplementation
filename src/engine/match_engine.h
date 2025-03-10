@@ -18,6 +18,7 @@ public:
         filter_order_.clear();
         matching_order_.clear();
         tree_.clear();
+        table_.clear();
 
         candidates_.resize(query_graph_size);
 
@@ -35,6 +36,7 @@ private:
     static std::vector<VertexID> matching_order_;
     static std::vector<VertexID> pivot_;
     static std::vector<TreeNode> tree_;
+    static Table table_;
     static ui embedding_count_;
 
 private:
@@ -44,3 +46,10 @@ private:
     static double generate_query_plan_time_;
     static double enumerate_time_;
 };
+
+// class Enumerate {
+// private:
+//     static void LFTJ(const Graph& data_graph, const Graph& query_graph, const Table& table,
+//                      const std::vector<std::vector<VertexID>>& candidates, const std::vector<VertexID>& order,
+//                      size_t& call_count);
+// };
