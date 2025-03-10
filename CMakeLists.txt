@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.10)
 project(SubgraphMatching)
 set(CMAKE_CXX_STANDARD 17)
 
+SET(CMAKE_BUILD_TYPE "Debug")
+
 include_directories(${PROJECT_SOURCE_DIR}/src)
 file(GLOB_RECURSE MAIN_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 file(GLOB_RECURSE MAIN_HEAD ${CMAKE_CURRENT_SOURCE_DIR}/src/*.h)

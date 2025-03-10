@@ -33,8 +33,8 @@ MatchingCommand::MatchingCommand(int argc, char **argv) : CommandParser(argc, ar
 }
 
 void MatchingCommand::process_options() {
-    for (int i = 0; i < static_cast<std::underlying_type_t<OptionKeyword>>(OptionKeyword::KeywordEnumEnd); i++) {
-        OptionKeyword keyword = static_cast<OptionKeyword>(i);
+    for (auto i = static_cast<std::underlying_type_t<OptionKeyword>>(OptionKeyword::UNDEFINED) + 1; i < static_cast<std::underlying_type_t<OptionKeyword>>(OptionKeyword::MAXKEYWORD); i++) {
+        OptionKeyword keyword = (OptionKeyword)i;
         options_value_[keyword] = get_command_option(options_key_[keyword]);
     }
 }

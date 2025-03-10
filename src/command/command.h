@@ -5,13 +5,14 @@
 #include <vector>
 
 enum class OptionKeyword {
+    UNDEFINED,         // Begin of keyword enum
     QueryGraphFile,    // -q, The query graph file path, compulsive parameter
     DataGraphFile,      // -d, The data graph file path, compulsive parameter
     Filter,             // -filter, The strategy of filtering
     Order,              // -order, The strategy of ordering
     Engine,             // -engine, The computation engine
     MaxOutputEmbeddingNum, // -num, The maximum output embedding num
-    KeywordEnumEnd, // End of keyword enum
+    MAXKEYWORD, // End of keyword enum
 };
 
 
@@ -50,8 +51,8 @@ public:
         return options_value_[OptionKeyword::Engine] == "" ? "LFTJ" : options_value_[OptionKeyword::Engine];
     }
 
-    std::string get_maximum_embedding_num() {
-        return options_value_[OptionKeyword::MaxOutputEmbeddingNum] == "" ? "MAX" : options_value_[OptionKeyword::MaxOutputEmbeddingNum];
+    unsigned int get_maximum_embedding_num() {
+        return options_value_[OptionKeyword::MaxOutputEmbeddingNum] == "" ? 10000 : std::stoi(options_value_[OptionKeyword::MaxOutputEmbeddingNum]);
     }
 
 private:

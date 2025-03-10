@@ -25,4 +25,6 @@
  */
 #define SI 0
 
+#define DEBUGMODE
+
 #define PRINT_SEPARATOR "------------------------------"
