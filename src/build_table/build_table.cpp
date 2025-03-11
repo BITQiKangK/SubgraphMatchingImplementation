@@ -20,6 +20,9 @@ void BuildTable::build_table(const Graph& data_graph, const Graph& query_graph, 
         const auto& u_nbrs = query_graph.get_vertex_neighbors(u);
 
         for (auto u_nbr : u_nbrs) {
+            if (!table[u][u_nbr].empty()) {
+                continue;
+            }
             for (auto v : candidates[u]) {
                 std::vector<VertexID> temp_intersection;
                 const auto& v_nbrs = data_graph.get_vertex_neighbors(v);

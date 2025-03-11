@@ -25,7 +25,7 @@ public:
         embedding_count_ = 0;
         filter_vertices_time_ = 0.;
         build_table_time_ = 0.;
-        generate_query_plan_time_ = 0.;
+        order_vertices_time_ = 0.;
         enumerate_time_ = 0.;
     }
 
@@ -43,13 +43,5 @@ private:
     static double filter_vertices_time_;
     static double order_vertices_time_;
     static double build_table_time_;
-    static double generate_query_plan_time_;
     static double enumerate_time_;
 };
-
-// class Enumerate {
-// private:
-//     static void LFTJ(const Graph& data_graph, const Graph& query_graph, const Table& table,
-//                      const std::vector<std::vector<VertexID>>& candidates, const std::vector<VertexID>& order,
-//                      size_t& call_count);
-// };

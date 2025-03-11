@@ -2,6 +2,7 @@
 #include "filter/filter.h"
 #include "build_table/build_table.h"
 #include "order/order.h"
+#include "enumerate/enumerate.h"
 
 #include <chrono>
 #include <iostream>
@@ -20,7 +21,7 @@ ui MatchEngine::embedding_count_;
 
 double MatchEngine::filter_vertices_time_;
 double MatchEngine::build_table_time_;
-double MatchEngine::generate_query_plan_time_;
+double MatchEngine::order_vertices_time_;
 double MatchEngine::enumerate_time_;
 
 void MatchEngine::match(const Graph& data_graph, const Graph& query_graph, const std::string& filter_type, const std::string& order_type, const std::string& engine_type, ui max_embedding_num) {
@@ -63,7 +64,7 @@ void MatchEngine::match(const Graph& data_graph, const Graph& query_graph, const
     auto start_order_time = std::chrono::high_resolution_clock::now();
     Order::order(data_graph, query_graph, order_type.c_str(), candidates_, matching_order_, pivot_);
     auto end_order_time = std::chrono::high_resolution_clock::now();
-    auto order_vertices_time_ = std::chrono::duration_cast<std::chrono::nanoseconds>(end_order_time - start_order_time).count();
+    order_vertices_time_ = std::chrono::duration_cast<std::chrono::nanoseconds>(end_order_time - start_order_time).count();
     std::cout << "Order vertices time: " << NANOSECTOSEC(order_vertices_time_) << " s" << std::endl;
 
 #ifdef DEBUGMODE
@@ -77,6 +78,18 @@ void MatchEngine::match(const Graph& data_graph, const Graph& query_graph, const
     // Enumerate
     std::cout << std::endl;
     std::cout << "3. Enumerate" << std::endl;
+    size_t call_count = 0;
+    
+    auto start_enumerate_time = std::chrono::high_resolution_clock::now();
+    size_t embedding_count = Enumerate::enumerate(data_graph, query_graph, engine_type.c_str(), table_, candidates_, matching_order_, pivot_, call_count);
+    auto end_enumerate_time = std::chrono::high_resolution_clock::now();
+    enumerate_time_ = std::chrono::duration_cast<std::chrono::nanoseconds>(end_enumerate_time - start_enumerate_time).count();
+    std::cout << "Enumerate time: " << NANOSECTOSEC(enumerate_time_) << " s" << std::endl;
 
+#ifdef DEBUGMODE
+    std::cout << "Enumerate call count : " << call_count << std::endl;
+#endif
+
+    std::cout << "# Embedding count: " << embedding_count << std::endl;
 
 }
