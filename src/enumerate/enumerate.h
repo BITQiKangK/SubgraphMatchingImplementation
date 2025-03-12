@@ -31,7 +31,13 @@ private:
     static void generate_bn(const Graph& query_graph, const std::vector<VertexID>& order, std::vector<std::vector<VertexID>>& bn);
 
 private:
+    // with pivot, for explore graph
     static void generate_valid_candidates(const Graph& data_graph, VertexID u_id, VertexID pivot_id, const Table& table, const std::vector<VertexID>& embedding,
                                           const std::vector<bool>& visited_vertices, const std::vector<VertexID>& cur_depth_bn, const std::vector<std::vector<VertexID>>& candidates,
                                           std::vector<VertexID>& cur_depth_valid_candidates);
+
+    // without pivot, for LFTJ
+   static void generate_valid_candidates(const Graph& data_graph, VertexID u_id, const Table& table, const std::vector<VertexID>& embedding, const std::vector<bool>& visited_vertices, 
+                                         const std::vector<VertexID>& cur_depth_bn, const std::vector<std::vector<VertexID>>& candidates, 
+                                         std::vector<VertexID>& cur_depth_valid_candidates);
 };

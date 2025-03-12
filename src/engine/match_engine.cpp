@@ -90,6 +90,6 @@ void MatchEngine::match(const Graph& data_graph, const Graph& query_graph, const
     std::cout << "Enumerate call count : " << call_count << std::endl;
 #endif
 
-    std::cout << "# Embedding count: " << embedding_count << std::endl;
+    std::cout << "#Embeddings: " << embedding_count << std::endl;
 
 }
